@@ -1,28 +1,28 @@
-########################################### Macine Learning  ##########################################################
+#############################################  Macine Learning  ##########################################################
 
 import os; os.chdir('C:/Users/marvin/Desktop/Python')
 
-############################################## Classification #######################################################
+################################################## Classification #######################################################
 
 import pandas as pd; import numpy as np ; transactions = pd.read_csv('transactions.csv', sep=",")
 
 #on modélise les transactions avec un CA superieure à la moyenne
 transactions['CA_fort'] = np.where(transactions['CA']>transactions['CA'].mean(),'oui','non') 
 
-############################################ Variable Num ########################################################
+############################################  Variable Numérique  ########################################################
 
 #le modele de classsification s'applique avec des variables numériques
 transactions_num = pd.DataFrame(np.c_[transactions.iloc[:,6:8],transactions.iloc[:,[9]]], 
                                 columns = ['Products','Products_Category','CA_fort'],
                                 index = transactions['ID_Transaction']) 
 
-#on découpe la base en 2 avec la meme proprtion de modalité 
-#sur la variable à modeliser dans la base train que dans la base test
+#on découpe la base en 2 avec la meme proprtion de chaque modalité de la variable à modeliser 
+#dans la base train que dans la base test. La base test contient 1000 individus
 from sklearn.model_selection import train_test_split
 train, test = train_test_split(transactions_num,test_size=1000,random_state=1, stratify = transactions_num.CA_fort)
 print(train.CA_fort.value_counts(normalize=True)) ; print(test.CA_fort.value_counts(normalize=True))
 
-#construction du modèle
+#construction du modèle, variables explicatives : Products et Products_Category, variable dépendante : CA_fort
 from sklearn.tree import DecisionTreeClassifier ; arbreFirst = DecisionTreeClassifier()
 X = train[['Products','Products_Category']] ; y = train.CA_fort ; arbreFirst.fit(X, y)
 
@@ -70,7 +70,7 @@ plt.show()
 impVarFirst = {"Variable":X.columns,"Importance":arbreFirst.feature_importances_}
 print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
-############################################ Variable Cat ######################################################
+##############################################  Variable Catégorielle  #####################################################
 
 col = list(transactions.columns)              
 del col[0];del col[5];del col[5];del col[5]
@@ -138,7 +138,7 @@ plt.show()
 impVarFirst = {"Variable":X.columns,"Importance":arbreFirst.feature_importances_}
 print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
-########################################### Variable Cat & Num ######################################################
+#########################################  Variable Catégorielle & Numérique  ###############################################
 
 #On y ajoute les variables numériques
 col = list(transactions_cat_bis.columns)              
