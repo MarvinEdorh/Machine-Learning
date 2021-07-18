@@ -46,4 +46,4 @@ pays_clusters_means = pd.DataFrame(pays.groupby('cluster').mean())
 #Cluster 1 : 1 pays, beaucoup de visiteurs, beaucoup de produits, tres fort CA
 #Cluster 2 : 2 pays, moyennement de visiteurs, moyennement de produits, moyen CA
 
-pays.to_csv('C:/Users/marvi/Desktop/MsMDA/AutoFormation/pays_clusters.csv')
+pays.to_csv('C:/Users/marvin/Desktop/Python/pays_clusters.csv')
