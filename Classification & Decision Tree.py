@@ -198,7 +198,7 @@ plt.show()
 impVarFirst = {"Variable":X.columns,"Importance":arbreFirst.feature_importances_}
 print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
-##################################################  Prédication  ######################################################
+##################################################  Prediction  ######################################################
 
 future_transac = pd.read_csv('future_transactions.csv', sep=",")
 col = list(future_transac.columns)              
@@ -217,4 +217,4 @@ future_transac_class = pd.DataFrame(np.c_[future_transac_cat_bis.iloc[:,0:27], f
                                 ], columns = col, index = transactions['ID_Transaction'])
 
 #On qpplique le modele
-future_transac_class['CA_predit'] = pd.DataFrame(arbreFirst.predict(future_transac_class)) 
+future_transac_class['CA_predict'] = pd.DataFrame(arbreFirst.predict(future_transac_class)) 
