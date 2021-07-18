@@ -1,6 +1,6 @@
 ########################################### Machine Learning  ##########################################################
 
-import os; os.chdir('C:/Users/marvi/Desktop/MsMDA/AutoFormation/Python')
+import os; os.chdir('C:/Users/marvin/Desktop/Python')
 
 ########################################## Régression Linéaire #########################################
 
