@@ -138,7 +138,7 @@ plt.show()
 impVarFirst = {"Variable":X.columns,"Importance":arbreFirst.feature_importances_}
 print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
-#########################################  Variable Catégorielle & Numérique  ###############################################
+######################################  Variable Catégorielle & Numérique  ###############################################
 
 #On y ajoute les variables numériques
 col = list(transactions_cat_bis.columns)              
