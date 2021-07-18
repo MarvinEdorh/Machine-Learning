@@ -200,6 +200,6 @@ print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
 #predire la natude des futures transaction
 future_transac = pd.read_csv('future_transactions.csv', sep=",")
-transactions_predit = pd.DataFrame(arbreFirst.predict(future_transac[future_transac.columns()])) 
+transactions_predit = pd.DataFrame(arbreFirst.predict(future_transac[future_transac.columns()]))
 
 
