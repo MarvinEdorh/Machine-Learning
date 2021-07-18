@@ -198,8 +198,23 @@ plt.show()
 impVarFirst = {"Variable":X.columns,"Importance":arbreFirst.feature_importances_}
 print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
-#predire la natude des futures transaction
+##################################################  Prédication  ######################################################
+
 future_transac = pd.read_csv('future_transactions.csv', sep=",")
-transactions_predit = pd.DataFrame(arbreFirst.predict(future_transac[future_transac.columns()]))
+col = list(future_transac.columns)              
+del col[0];del col[5];del col[5]
 
+future_transac_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:6]], 
+                                        columns = col, index = future_transac['ID_Transaction']) 
 
+#encodage one hot des variable catégorielles
+future_transac_cat_bis = pd.get_dummies(future_transac_cat)
+
+#On y ajoute les variables numériques
+col = list(future_transac_cat_bis.columns)              
+col.append('Products');col.append('Products_Category')
+future_transac_class = pd.DataFrame(np.c_[future_transac_cat_bis.iloc[:,0:27], future_transac.iloc[:,6:8],
+                                ], columns = col, index = transactions['ID_Transaction'])
+
+#On qpplique le modele
+future_transac_class['CA_predit'] = pd.DataFrame(arbreFirst.predict(future_transac_class)) 
