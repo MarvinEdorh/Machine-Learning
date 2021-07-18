@@ -70,7 +70,7 @@ plt.show()
 impVarFirst = {"Variable":X.columns,"Importance":arbreFirst.feature_importances_}
 print(pd.DataFrame(impVarFirst).sort_values(by="Importance",ascending=False))
 
-##############################################  Variable Catégorielle  #####################################################
+#############################################  Variable Catégorielle  ###################################################
 
 col = list(transactions.columns)              
 del col[0];del col[5];del col[5];del col[5]
