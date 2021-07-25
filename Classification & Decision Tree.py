@@ -1,6 +1,6 @@
 ############################## Machine Learning Classification & Desisions Tree #####################################
 
-import os; os.chdir('C:/Users/marvi/Desktop/Python')
+import os; os.chdir('C:/Users/marvin/Desktop/Python')
 
 #On modélise le phénomene d'achat afin de de predire quels visiteurs sont susceptibles d'efectuer une transaction
 
