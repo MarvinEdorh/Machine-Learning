@@ -2,7 +2,7 @@ WITH visitors AS (
 SELECT DISTINCT fullvisitorid, device.deviceCategory, device.operatingSystem, 
 trafficSource.campaign, trafficSource.medium, geoNetwork.continent,
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
-UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp ), 
+UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp ORDER BY fullvisitorid), 
 visits_products AS (  
 SELECT fullvisitorid, hp.v2ProductName AS Products, SUM(totals.visits) AS Products_Visits
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga,
