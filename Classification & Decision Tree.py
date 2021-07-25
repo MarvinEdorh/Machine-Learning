@@ -106,7 +106,6 @@ del col[0];del col[7];del col[7]
 future_transac_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:8]], 
                                         columns = col, index = future_transac['fullvisitorid']) 
 
-
 #encodage one hot des variable catégorielles
 future_transac_cat_bis = pd.get_dummies(future_transac_cat)
 
