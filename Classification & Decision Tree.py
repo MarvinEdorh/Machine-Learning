@@ -1,6 +1,6 @@
 ############################## Machine Learning Classification & Desisions Tree #####################################
 
-import os; os.chdir('C:/Users/marvin/Desktop/Python')
+import os; os.chdir('C:/Users/marvi/Desktop/MsMDA/AutoFormation/Python')
 
 #On modélise le phénomene d'achat afin de de predire quels visiteurs sont susceptibles d'efectuer une transaction
 
@@ -18,14 +18,26 @@ col = list(transactions.columns); del col[0];del col[7];del col[7]
 
 transactions_cat = pd.DataFrame(np.c_[transactions.iloc[:,1:8],transactions.iloc[:,[10]]], columns = col) 
 
-transactions_cat_bis = pd.get_dummies(transactions_cat[transactions_cat.columns[:-1]])
+transactions_cat_one_hot = pd.get_dummies(transactions_cat[transactions_cat.columns[:-1]])
+
+segments = pd.read_csv('segments.csv', sep=",")
+
+segments_cat_one_hot = pd.get_dummies(segments)  
+
+col_1 = list(segments_cat_one_hot.columns) ; col_2 = list(transactions_cat_one_hot.columns) 
+
+col_3 = [value for value in col_1 if value not in col_2]
+
+col_4 = col_2 + col_3
+
+d = pd.DataFrame( columns = col_3, index=range(0, 16000) )
+d.fillna(0) 
 
 #On y ajoute les variables numériques
-
-col = list(transactions_cat_bis.columns) ; 
+col = col_4 ; 
 col.append('Products_Visits');col.append('Products_Category_Visits');col.append('transaction')
-transactions_class = pd.DataFrame(np.c_[transactions_cat_bis.iloc[:,0:391],transactions.iloc[:,8:10],
-                                      transactions.iloc[:,[10]]], columns = col) 
+transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391],d.iloc[:,0:381],
+                                        transactions.iloc[:,8:10],transactions.iloc[:,[10]]], columns = col) 
 
 #on découpe la base en 2 avec la meme proprtion de modalité 
 #sur la variable à modeliser dans la base train que dans la base test
@@ -97,23 +109,31 @@ xgb.plot_importance(boost)
 #arbre de decicision
 xgb.to_graphviz(boost, num_trees=2)
 
-##################################################  Prediction  ######################################################
+##################################################  Prédiction  ######################################################
 
-future_transac = pd.read_csv('future_transactions_1.csv', sep=",")
-col = list(future_transac.columns)              
-del col[0];del col[7];del col[7]
+future_transac = pd.read_csv('future_transactions.csv', sep=",")
+
+col = list(future_transac.columns) ; del col[0];del col[7];del col[7]
 
 future_transac_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:8]], 
                                         columns = col, index = future_transac['fullvisitorid']) 
 
 #encodage one hot des variable catégorielles
-future_transac_cat_bis = pd.get_dummies(future_transac_cat)
+future_transac_cat_one_hot = pd.get_dummies(future_transac_cat)
+
+col_1 = list(segments_cat_one_hot.columns) ; col_2 = list(future_transac_cat_one_hot.columns) 
+
+col_3 = [value for value in col_1 if value not in col_2]
+
+col_4 = col_2 + col_3
+
+d = pd.DataFrame( columns = col_3, index=range(0, 16000) ) ; d.fillna(0) 
 
 #On y ajoute les variables numériques
-col = list(future_transac_cat_bis.columns)              
-col.append('Products_Visits');col.append('Products_Category_Visits');
-future_transac_class = pd.DataFrame(np.c_[future_transac_cat_bis.iloc[:,0:306], future_transac.iloc[:,8:10],
-                                ], columns = col, index = future_transac['fullvisitorid'])
+col = col_4 ; col.append('Products_Visits');col.append('Products_Category_Visits');
+future_transac_class = pd.DataFrame(np.c_[future_transac_cat_one_hot.iloc[:,0:346],d.iloc[:,0:426],
+                                          future_transac.iloc[:,8:10]], columns = col, 
+                                    index = future_transac['fullvisitorid'])
 
 #On qpplique le modele pour prédire quels visiteurs sont le plus suceptibles d'effectuer une transaction
 future_transac_class['CA_predit'] = pd.DataFrame(arbreFirst.predict(future_transac_class)) 
