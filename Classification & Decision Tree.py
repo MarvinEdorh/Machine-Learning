@@ -1,6 +1,6 @@
 ############################## Machine Learning Classification & Desisions Tree #####################################
 
-import os; os.chdir('C:/Users/marvi/Desktop/MsMDA/AutoFormation/Python')
+import os; os.chdir('C:/Users/marvin/Python')
 
 #On modélise le phénomene d'achat afin de de predire quels visiteurs sont susceptibles d'efectuer une transaction
 
@@ -30,8 +30,7 @@ col_3 = [value for value in col_1 if value not in col_2]
 
 col_4 = col_2 + col_3
 
-d = pd.DataFrame( columns = col_3, index=range(0, 16000) )
-d.fillna(0) 
+d = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) ) 
 
 #On y ajoute les variables numériques
 col = col_4 ; 
@@ -56,7 +55,7 @@ eval_test = pd.DataFrame(arbreFirst.predict(test[train.columns[:-1]]))
 from sklearn import metrics ; metrics.confusion_matrix(test.transaction,eval_test )
 
 print(metrics.classification_report(test.transaction,eval_test)) 
-#1-recall = tx de faux pos ou tx de faux neg (ici 0% de faux neg mais 50% de faux pos)
+#1-recall = tx de faux pos ou tx de faux neg (ici 0% de faux neg mais 40% de faux pos)
 
 #taux de reconnaissance – (vrai positf + vrai négatif)/ effectif total 
 metrics.accuracy_score(test.transaction,eval_test )
@@ -127,7 +126,7 @@ col_3 = [value for value in col_1 if value not in col_2]
 
 col_4 = col_2 + col_3
 
-d = pd.DataFrame( columns = col_3, index=range(0, 16000) ) ; d.fillna(0) 
+d = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) )
 
 #On y ajoute les variables numériques
 col = col_4 ; col.append('Products_Visits');col.append('Products_Category_Visits');
@@ -136,4 +135,4 @@ future_transac_class = pd.DataFrame(np.c_[future_transac_cat_one_hot.iloc[:,0:34
                                     index = future_transac['fullvisitorid'])
 
 #On qpplique le modele pour prédire quels visiteurs sont le plus suceptibles d'effectuer une transaction
-future_transac_class['CA_predit'] = pd.DataFrame(arbreFirst.predict(future_transac_class)) 
+future_transac_class['transactions_predict'] = arbreFirst.predict(future_transac_class) 
