@@ -20,6 +20,11 @@ transactions_cat = pd.DataFrame(np.c_[transactions.iloc[:,1:8],transactions.iloc
 
 transactions_cat_one_hot = pd.get_dummies(transactions_cat[transactions_cat.columns[:-1]])
 
+#Il doit y avoir exactement les mêmes modalités entre les données d´entrainement et celles de predictions,
+#donc dans l´anticipation de la prediction on ajoute les modalités qui pouraient ne pas de trouver dans le 
+#jeu d´entrainement mais figurer celui de prediction. On y applique ensuite également un encodage one hot 
+#et prendront donc toutes la valeur 0 dans le jeu d´entrainement.
+
 segments = pd.read_csv('segments.csv', sep=",")
 
 segments_cat_one_hot = pd.get_dummies(segments)  
@@ -30,12 +35,12 @@ col_3 = [value for value in col_1 if value not in col_2]
 
 col_4 = col_2 + col_3
 
-d = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) ) 
+var_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) ) 
 
 #On y ajoute les variables numériques
 col = col_4 ; 
 col.append('Products_Visits');col.append('Products_Category_Visits');col.append('transaction')
-transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391],d.iloc[:,0:381],
+transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391],var_add.iloc[:,0:381],
                                         transactions.iloc[:,8:10],transactions.iloc[:,[10]]], columns = col) 
 
 #on découpe la base en 2 avec la meme proprtion de modalité 
@@ -119,6 +124,9 @@ future_transac_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:8]],
 
 #encodage one hot des variable catégorielles
 future_transac_cat_one_hot = pd.get_dummies(future_transac_cat)
+
+#On ajoute également les modalités qui ne figureraient pas dans le jeu de prediction mais qui étaient presentes 
+#dans celui d´entrainement. Avec l´encodage one hot elles prendront cette fois toutes pour valeur 0.
 
 col_1 = list(segments_cat_one_hot.columns) ; col_2 = list(future_transac_cat_one_hot.columns) 
 
