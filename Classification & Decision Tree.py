@@ -114,10 +114,10 @@ xgb.to_graphviz(boost, num_trees=2)
 
 future_transactions = pd.read_csv('future_transactions.csv', sep=",")
 
-col = list(future_transac.columns) ; del col[0];del col[7];del col[7]
+col = list(future_transactions.columns) ; del col[0];del col[7];del col[7]
 
 future_transactions_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:8]], 
-                                        columns = col, index = future_transactions['fullvisitorid']) 
+                                       columns = col, index = future_transactions['fullvisitorid']) 
 
 #encodage one hot des variable catégorielles
 future_transactions_cat_one_hot = pd.get_dummies(future_transactions_cat)
@@ -134,7 +134,7 @@ mod_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) )
 #On y ajoute les variables numériques
 col = col_4 ; col.append('Products_Visits') ; col.append('Products_Category_Visits') 
 future_transactions_class = pd.DataFrame(np.c_[future_transactions_cat_one_hot.iloc[:,0:346],mod_add.iloc[:,0:426],
-                                          future_transactions.iloc[:,8:10]], 
+                                               future_transactions.iloc[:,8:10]], 
                                          columns = col, index = future_transactions['fullvisitorid'])
 
 #On qpplique le modele pour prédire quels visiteurs sont le plus suceptibles d'effectuer une transaction
