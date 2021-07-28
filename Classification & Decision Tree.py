@@ -55,7 +55,7 @@ eval_test = pd.DataFrame(arbreFirst.predict(test[train.columns[:-1]]))
 from sklearn import metrics ; metrics.confusion_matrix(test.transaction,eval_test )
 
 print(metrics.classification_report(test.transaction,eval_test)) 
-#1-recall = tx de faux pos ou tx de faux neg (ici 0% de faux neg mais 40% de faux pos)
+#1-recall = tx de faux pos ou tx de faux neg (ici 0% de faux negatifs mais 40% de faux positifs)
 
 #taux de reconnaissance – (vrai positf + vrai négatif)/ effectif total 
 metrics.accuracy_score(test.transaction,eval_test )
