@@ -131,7 +131,7 @@ col_1 = list(modalites_cat_one_hot.columns) ; col_2 = list(future_transactions_c
 
 col_3 = [value for value in col_1 if value not in col_2] ; col_4 = col_2 + col_3
 
-mod_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) )
+mod_add = pd.DataFrame(0, columns = col_3, index=range(0, 16000))
 
 #On y ajoute les variables numériques
 col = col_4 ; col.append('Products_Visits') ; col.append('Products_Category_Visits') 
