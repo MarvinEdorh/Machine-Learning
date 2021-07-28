@@ -25,22 +25,19 @@ transactions_cat_one_hot = pd.get_dummies(transactions_cat[transactions_cat.colu
 #jeu d´entrainement mais figurer celui de prediction. On y applique ensuite également un encodage one hot 
 #et prendront donc toutes la valeur 0 dans le jeu d´entrainement.
 
-segments = pd.read_csv('segments.csv', sep=",")
+modalites = pd.read_csv('segments.csv', sep=",")
 
-segments_cat_one_hot = pd.get_dummies(segments)  
+modalites_cat_one_hot = pd.get_dummies(segments)  
 
-col_1 = list(segments_cat_one_hot.columns) ; col_2 = list(transactions_cat_one_hot.columns) 
+col_1 = list(modalites_cat_one_hot.columns) ; col_2 = list(transactions_cat_one_hot.columns) 
 
-col_3 = [value for value in col_1 if value not in col_2]
+col_3 = [value for value in col_1 if value not in col_2] : col_4 = col_2 + col_3
 
-col_4 = col_2 + col_3
-
-var_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) ) 
+mod_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) ) 
 
 #On y ajoute les variables numériques
-col = col_4 ; 
-col.append('Products_Visits');col.append('Products_Category_Visits');col.append('transaction')
-transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391],var_add.iloc[:,0:381],
+col = col_4 ; col.append('Products_Visits');col.append('Products_Category_Visits');col.append('transaction')
+transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391],mod_add.iloc[:,0:381],
                                         transactions.iloc[:,8:10],transactions.iloc[:,[10]]], columns = col) 
 
 #on découpe la base en 2 avec la meme proprtion de modalité 
@@ -115,32 +112,30 @@ xgb.to_graphviz(boost, num_trees=2)
 
 ##################################################  Prédiction  ######################################################
 
-future_transac = pd.read_csv('future_transactions.csv', sep=",")
+future_transactions = pd.read_csv('future_transactions.csv', sep=",")
 
 col = list(future_transac.columns) ; del col[0];del col[7];del col[7]
 
-future_transac_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:8]], 
-                                        columns = col, index = future_transac['fullvisitorid']) 
+future_transactions_cat = pd.DataFrame(np.c_[future_transac.iloc[:,1:8]], 
+                                        columns = col, index = future_transactions['fullvisitorid']) 
 
 #encodage one hot des variable catégorielles
-future_transac_cat_one_hot = pd.get_dummies(future_transac_cat)
+future_transactions_cat_one_hot = pd.get_dummies(future_transactions_cat)
 
 #On ajoute également les modalités qui ne figureraient pas dans le jeu de prediction mais qui étaient presentes 
 #dans celui d´entrainement. Avec l´encodage one hot elles prendront cette fois toutes pour valeur 0.
 
-col_1 = list(segments_cat_one_hot.columns) ; col_2 = list(future_transac_cat_one_hot.columns) 
+col_1 = list(modalites_cat_one_hot.columns) ; col_2 = list(future_transactions_cat_one_hot.columns) 
 
-col_3 = [value for value in col_1 if value not in col_2]
+col_3 = [value for value in col_1 if value not in col_2] ; col_4 = col_2 + col_3
 
-col_4 = col_2 + col_3
-
-d = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) )
+mod_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) )
 
 #On y ajoute les variables numériques
-col = col_4 ; col.append('Products_Visits');col.append('Products_Category_Visits');
-future_transac_class = pd.DataFrame(np.c_[future_transac_cat_one_hot.iloc[:,0:346],d.iloc[:,0:426],
-                                          future_transac.iloc[:,8:10]], columns = col, 
-                                    index = future_transac['fullvisitorid'])
+col = col_4 ; col.append('Products_Visits') ; col.append('Products_Category_Visits') 
+future_transactions_class = pd.DataFrame(np.c_[future_transactions_cat_one_hot.iloc[:,0:346],mod_add.iloc[:,0:426],
+                                          future_transactions.iloc[:,8:10]], 
+                                         columns = col, index = future_transactions['fullvisitorid'])
 
 #On qpplique le modele pour prédire quels visiteurs sont le plus suceptibles d'effectuer une transaction
-future_transac_class['transactions_predict'] = arbreFirst.predict(future_transac_class) 
+future_transactions_class['transactions_predict'] = arbreFirst.predict(future_transactions_class) 
