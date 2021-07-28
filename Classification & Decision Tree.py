@@ -112,7 +112,7 @@ xgb.plot_importance(boost)
 #arbre de decicision
 xgb.to_graphviz(boost, num_trees=2)
 
-##################################################  Prédiction  ######################################################
+##################################################  Prediction  ######################################################
 
 future_transactions = pd.read_csv('future_transactions.csv', sep=",")
 
