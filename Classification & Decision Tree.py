@@ -20,14 +20,16 @@ transactions_cat = pd.DataFrame(np.c_[transactions.iloc[:,1:8],transactions.iloc
 
 transactions_cat_one_hot = pd.get_dummies(transactions_cat[transactions_cat.columns[:-1]])
 
-#Il doit y avoir exactement les mêmes modalités entre les données d´entrainement et celles de predictions,
-#donc dans l´anticipation de la prediction on ajoute les modalités qui pouraient ne pas de trouver dans le 
-#jeu d´entrainement mais figurer celui de prediction. On y applique ensuite également un encodage one hot 
-#et prendront donc toutes la valeur 0 dans le jeu d´entrainement.
+#Il doit y avoir exactement les mêmes modalités entre les données d'entrainement et celles de predictions.
+#Dans l'anticipation de la prediction on ajoute les modalités qui pouraient ne pas de trouver dans le 
+#jeu d'entrainement mais figurer celui de prediction (un produit jamais acheté mais figurant tout de meme sur
+#le site, un visiteur d'un nouvau continent ou source de calpagne). On y applique ensuite également un encodage 
+#one hot et elles prendront donc toutes la valeur 0 dans le jeu d´entrainement et 1 dans celui de prediction 
+#si elles s'y trouvent.
 
 modalites = pd.read_csv('segments.csv', sep=",")
 
-modalites_cat_one_hot = pd.get_dummies(segments)  
+modalites_cat_one_hot = pd.get_dummies(modalites)  
 
 col_1 = list(modalites_cat_one_hot.columns) ; col_2 = list(transactions_cat_one_hot.columns) 
 
@@ -36,9 +38,9 @@ col_3 = [value for value in col_1 if value not in col_2] : col_4 = col_2 + col_3
 mod_add = pd.DataFrame( 0, columns = col_3, index=range(0, 16000) ) 
 
 #On y ajoute les variables numériques
-col = col_4 ; col.append('Products_Visits');col.append('Products_Category_Visits');col.append('transaction')
-transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391],mod_add.iloc[:,0:381],
-                                        transactions.iloc[:,8:10],transactions.iloc[:,[10]]], columns = col) 
+col = col_4 ; col.append('Products_Visits') ; col.append('Products_Category_Visits') ; col.append('transaction')
+transactions_class = pd.DataFrame(np.c_[transactions_cat_one_hot.iloc[:,0:391], mod_add.iloc[:,0:381],
+                                        transactions.iloc[:,8:10], transactions.iloc[:,[10]]], columns = col) 
 
 #on découpe la base en 2 avec la meme proprtion de modalité 
 #sur la variable à modeliser dans la base train que dans la base test
