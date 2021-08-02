@@ -95,6 +95,9 @@ plt.show()
 Importance_Var = pd.DataFrame({"Variable":X.columns,"Importance":arbreFirst.feature_importances_
                                }).sort_values(by="Importance",ascending=False) 
 
+#On voit ici que la variable plus importante dans le fait d´effectuer une transaction est 
+#le nombre de visites sur le produit acheté
+
 #Méthode 2 xgboost
 
 from xgboost import XGBClassifier ; from sklearn.preprocessing import MinMaxScaler ; import xgboost as xgb
