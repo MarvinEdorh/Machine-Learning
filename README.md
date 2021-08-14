@@ -1,3 +1,5 @@
-#Linear Regression
+# Linear Regression
 
-#Classification & Decisions Tree
+# Classification & Decisions Tree
+
+# K-Means Clustering
