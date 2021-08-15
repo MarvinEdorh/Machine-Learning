@@ -19,7 +19,7 @@ FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga,UNNEST(g
 UNNEST(hits.product) AS hp WHERE _TABLE_SUFFIX <= '20161201'
 GROUP BY fullvisitorid, Product_Category ORDER BY fullvisitorid, Product_Category_Visits DESC )
 SELECT ID_Transaction, deviceCategory, operatingSystem, campaign, medium, continent,
-transactions.Product, Product_Visits, transactions.Product_Category, Product_Category_Visits, 
+transactions.Product, transactions.Product_Category, Product_Visits, Product_Category_Visits, 
 CASE WHEN CA = 0 THEN 0 ELSE 1 END AS Transaction
 FROM transactions LEFT JOIN visits_products
 ON transactions.fullvisitorid = visits_products.fullvisitorid AND transactions.Product = visits_products.Product
