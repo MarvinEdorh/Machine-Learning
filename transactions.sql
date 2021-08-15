@@ -3,7 +3,7 @@ transactions AS (
 SELECT hits.transaction.transactionId AS ID_Transaction, device.deviceCategory,device.operatingSystem,
 trafficSource.campaign, trafficSource.medium, geoNetwork.continent, fullvisitorid , hp.v2ProductName AS Product, 
 hp.v2ProductCategory AS Product_Category,IFNULL(SUM(hits.transaction.transactionRevenue/1000000),0) AS CA, 
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_20161201` AS ga, 
 UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
 GROUP BY ID_Transaction, device.deviceCategory,device.operatingSystem,trafficSource.campaign, 
 trafficSource.medium, geoNetwork.continent, fullvisitorid , Product, Product_Category
