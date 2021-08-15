@@ -18,7 +18,7 @@ SELECT fullvisitorid, hp.v2ProductCategory AS Product_Category, SUM( totals.visi
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga,UNNEST(ga.hits) AS hits, 
 UNNEST(hits.product) AS hp WHERE _TABLE_SUFFIX <= '20161201'
 GROUP BY fullvisitorid, Product_Category ORDER BY fullvisitorid, Product_Category_Visits DESC )
-SELECT ID_Transaction, deviceCategory, operatingSystem, campaign, medium, continent, transactions.fullvisitorid,
+SELECT ID_Transaction, deviceCategory, operatingSystem, campaign, medium, continent,
 transactions.Product, Product_Visits, transactions.Product_Category, Product_Category_Visits, 
 CASE WHEN CA = 0 THEN 0 ELSE 1 END AS Transaction
 FROM transactions LEFT JOIN visits_products
