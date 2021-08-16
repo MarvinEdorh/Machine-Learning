@@ -2,7 +2,6 @@
 Demo : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Linear%20Regression.py
 
 La régression linéaire est un modèle qui permet de modéliser toute variable numérique comme une combinaison linéaire d'autres variables numériques et d'un résidus aléatoire. En marketing digital ce modèle peut par exemple être utiliser pour prédire la lifetime value d'un consommateur en fonction de son son panier moyen, sa fréquence d'achat, sa durée de vie... Si l'on veut inclure au modèle des variables catégorielles comme le device ou les catégories produits visitées ou consommés, alors on peut soit effectuer un label encoding de ces variables ou alors réaliser une analyse factorielle afin de réduire le résidus.
-
 # Classification : Transaction & Churn
 Demo : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Classification%20%26%20Decision%20Tree.py
 
@@ -11,7 +10,6 @@ Le modèle de classification permet de modéliser une variable binaire (variable
 ![decisions tree](https://user-images.githubusercontent.com/83826055/129543979-49f4f07a-b6d0-46c5-85ae-cebca9e7f984.png)
 
 On voit ici quelle variable contribue le plus fait q'un individu effectue une transaction. Les variables catégorielles étant la résultante d'un lablel encoding elles ont pour modalité 0 ou 1 donc quand l'abre indique <0,5 cela veut dire = 0 et = 1 sinon. On constate ici que la variable qui prédétermine le plus qu'un individus effectue une transaction soit que product_category_Apparel soit égale 0 (donc que l'individus ne l'ai pas visité), sinon que le nombre de visites soit inférieur à 3,5 et ainsi de suite. On applique enfin le modèle à de nouveaux individus pour voir lesquels sont sur le point d'effectuer une transaction.
-
 # K-Means Clustering : Segmentation
 Demo 1 : https://github.com/MarvinEdorh/Data-Mining/blob/main/README.md#k-means-clustering
 
