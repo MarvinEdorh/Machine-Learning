@@ -31,7 +31,7 @@ for row in query_results:
 clv = {"CA":CA,"lifetime":lifetime,"lifetime_value":lifetime_value} 
 clv = pd.DataFrame(clv, index = ID_Visitor)
 
-################################################# Régression Linéaire ###############################################
+################################################# Régression Linéaire ####################################################
 
 import pandas as pd ; import numpy as np ; from sklearn.linear_model import LinearRegression 
 from scipy import stats ; import statsmodels.api as sm
@@ -51,7 +51,7 @@ pd.DataFrame({'coefficients' : coeff,'R²' : R_sq}, index =['intercept','CA','li
 X = sm.add_constant(X)
 model_Reg_lin_2 = sm.OLS(y, X) ; results = model_Reg_lin_2.fit() ; results.summary()
 
-#################################################### prediction ########################################################
+#################################################### prediction ##########################################################
 
 query = """
 SELECT CONCAT('ID',fullvisitorid) AS ID_Visitor, IFNULL(SUM(hits.transaction.transactionRevenue/1000000),0) AS CA,  
