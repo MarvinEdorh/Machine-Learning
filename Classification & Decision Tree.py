@@ -79,7 +79,7 @@ transactions = {"ID_Transaction":ID_Transaction,
                   "Transaction":Transaction} 
 transactions = pd.DataFrame(transactions)
 
-######################################################## Train #########################################################
+####################################################### Train #########################################################
 
 #le modele de classsification s'applique avec des variables numériques
 #il faut recoder les variables catégorielles en effectuant un encodage one hot,
