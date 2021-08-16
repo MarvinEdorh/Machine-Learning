@@ -4,7 +4,7 @@ import os; os.chdir('C:/Users/Desktop/Python')
 
 #On modélise le phénomene d'achat afin de de predire quels visiteurs sont susceptibles d'efectuer une transaction
 
-################################################### SQL BigQuery #################################################
+################################################# SQL BigQuery ######################################################
 
 import numpy as np ; import pandas as pd ; from google.cloud import bigquery
 
@@ -79,7 +79,7 @@ transactions = {"ID_Transaction":ID_Transaction,
                   "Transaction":Transaction} 
 transactions = pd.DataFrame(transactions)
 
-################################################### Train ##########################################################
+######################################################## Train #########################################################
 
 #le modele de classsification s'applique avec des variables numériques
 #il faut recoder les variables catégorielles en effectuant un encodage one hot,
