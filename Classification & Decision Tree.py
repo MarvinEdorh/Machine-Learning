@@ -1,6 +1,6 @@
 ################################ Machine Learning Classification & Desisions Tree ####################################
 
-import os; os.chdir('C:/Users/Desktop/Python')
+import os; os.chdir('C:/Users/marvin/Desktop/Python')
 
 #On modélise le phénomene d'achat afin de de predire quels visiteurs sont susceptibles d'efectuer une transaction
 
@@ -9,8 +9,8 @@ import os; os.chdir('C:/Users/Desktop/Python')
 import numpy as np ; import pandas as pd ; from google.cloud import bigquery
 
 client = bigquery.Client.from_service_account_json(
-json_credentials_path='mrvtestproject45-bbc9aec8eae9.json', 
-project='mrvtestproject45')
+json_credentials_path='data_pipeline-bbc9aec8eae9.json', 
+project='data_pipeline')
 
 #Caractéritiques de chaque transaction : device de l'achat, systeme d'exploitation, source campaign, source trafic, 
 #continent, produits et catégorie produit, nombre de visites sur produits et catégorie produit achetés avant achat
