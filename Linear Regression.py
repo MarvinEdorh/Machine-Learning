@@ -51,7 +51,7 @@ pd.DataFrame({'coefficients' : coeff,'R²' : R_sq}, index =['intercept','CA','li
 X = sm.add_constant(X)
 model_Reg_lin_2 = sm.OLS(y, X) ; results = model_Reg_lin_2.fit() ; results.summary()
 
-##################################################### prediction ##################################################
+#################################################### prediction #####################################################
 
 query = """
 SELECT CONCAT('ID',fullvisitorid) AS ID_Visitor, IFNULL(SUM(hits.transaction.transactionRevenue/1000000),0) AS CA,  
