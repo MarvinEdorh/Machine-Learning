@@ -67,16 +67,16 @@ for row in query_results:
     Transaction.append(row[10])
        
 transactions = {"ID_Transaction":ID_Transaction,
-                  "deviceCategory":deviceCategory,
-                  "operatingSystem":operatingSystem,
-                  "campaign":campaign,
-                  "medium":medium,
-                  "continent":continent,
-                  "Product":Product,
-                  "Product_Category":Product_Category,
-                  "Product_Visits":Product_Visits,
-                  "Product_Category_Visits":Product_Category_Visits,
-                  "Transaction":Transaction} 
+                "deviceCategory":deviceCategory,
+                "operatingSystem":operatingSystem,
+                "campaign":campaign,
+                "medium":medium,
+                "continent":continent,
+                "Product":Product,
+                "Product_Category":Product_Category,
+                "Product_Visits":Product_Visits,
+                "Product_Category_Visits":Product_Category_Visits,
+                "Transaction":Transaction} 
 transactions = pd.DataFrame(transactions)
 
 ###################################################### Train #########################################################
@@ -215,9 +215,8 @@ LEFT JOIN visits_products_category USING (fullvisitorid)"""
 query_results = client.query(query) ; query_results = query_results.result()
 
 #Résutats de la reqête
-fullvisitorid = [] ; deviceCategory = [] ;	operatingSystem	= [] ; campaign	= [] ; medium = [] ;	
-continent = [] ; Product = [] ; Product_Category = [] ; Product_Visits = [] ; Product_Category_Visits = [] 
-Transaction = [] ;
+fullvisitorid = [] ; deviceCategory = [] ;	operatingSystem	= [] ; campaign	= [] ; medium = [] ; continent = [] 
+Product = [] ; Product_Category = [] ; Product_Visits = [] ; Product_Category_Visits = [] ; Transaction = [] 
 
 for row in query_results: 
     fullvisitorid.append(row[0]) 
@@ -231,16 +230,10 @@ for row in query_results:
     Product_Visits.append(row[8])
     Product_Category_Visits	.append(row[9])
        
-future_transactions = {"fullvisitorid":fullvisitorid,
-                       "deviceCategory":deviceCategory,
-                       "operatingSystem":operatingSystem,
-                       "campaign":campaign,
-                       "medium":medium,
-                       "continent":continent,
-                       "Product":Product,
-                       "Product_Category":Product_Category,
-                       "Product_Visits":Product_Visits,
-                       "Product_Category_Visits":Product_Category_Visits} 
+future_transactions = {"fullvisitorid":fullvisitorid, "deviceCategory":deviceCategory,
+                       "operatingSystem":operatingSystem, "campaign":campaign, "medium":medium, 
+                       "continent":continent, "Product":Product, "Product_Category":Product_Category, 
+                       "Product_Visits":Product_Visits, "Product_Category_Visits":Product_Category_Visits} 
 
 future_transactions = pd.DataFrame(future_transactions)
 
@@ -267,5 +260,5 @@ future_transactions_class = pd.DataFrame(np.c_[future_transactions_cat_one_hot.i
                                                future_transactions.iloc[:,8:10]], 
                                                columns = col, index = future_transactions['fullvisitorid'])
 
-#On qpplique le modele pour prédire quels visiteurs sont le plus suceptibles d'effectuer une transaction
+#On qpplique le modèle pour prédire quels visiteurs sont le plus suceptibles d'effectuer une transaction
 future_transactions_class['transactions_predict'] = arbreFirst.predict(future_transactions_class) 
