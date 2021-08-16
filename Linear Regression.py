@@ -1,7 +1,7 @@
-############################################### Costumer Lifetime Value ########################################################
+############################################### Costumer Lifetime Value ##################################################
 import os; os.chdir('C:/Users/marvi/Desktop/MsMDA/AutoFormation/Python')
 
-################################################### SQL BigQuery ########################################################
+#################################################### SQL BigQuery ########################################################
 
 import numpy as np ; import pandas as pd ; from google.cloud import bigquery
 
@@ -31,7 +31,7 @@ for row in query_results:
 clv = {"CA":CA,"lifetime":lifetime,"lifetime_value":lifetime_value} 
 clv = pd.DataFrame(clv, index = ID_Visitor)
 
-########################################## Régression Linéaire #########################################
+################################################ Régression Linéaire #########################################
 
 import pandas as pd ; import numpy as np ; from sklearn.linear_model import LinearRegression 
 from scipy import stats ; import statsmodels.api as sm
