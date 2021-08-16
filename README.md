@@ -10,6 +10,8 @@ Le modèle de classification permet de modéliser une variable binaire (variable
 
 ![decisions tree](https://user-images.githubusercontent.com/83826055/129446293-262d9803-549c-486b-9fe8-426f16bf5a66.png)
 
+On voit ici quel variable contribue le plus fait q'un individu effectue une transaction. Les variables catégorielles étant la résultante d'un lablel encoding elles ont pour modalité 0 ou 1 donc quand l'abre indique <0,5 cela veut dire = 0 et et = 1 sinon
+
 
 
 # K-Means Clustering
