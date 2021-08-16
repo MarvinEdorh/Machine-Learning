@@ -62,7 +62,7 @@ GROUP BY fullvisitorid ORDER BY CA DESC"""
 query_results = client.query(query) ; query_results = query_results.result()
 
 #Résutats de la reqête
-ID_Visitor = [] ; CA = [] ;	lifetime = [] 
+ID_Visitor = [] ; CA = [] ; lifetime = [] 
 
 for row in query_results: 
     ID_Visitor.append(row[0]) 
