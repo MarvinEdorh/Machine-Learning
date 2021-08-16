@@ -10,9 +10,7 @@ Le modèle de classification permet de modéliser une variable binaire (variable
 
 ![decisions tree](https://user-images.githubusercontent.com/83826055/129446293-262d9803-549c-486b-9fe8-426f16bf5a66.png)
 
-On voit ici quel variable contribue le plus fait q'un individu effectue une transaction. Les variables catégorielles étant la résultante d'un lablel encoding elles ont pour modalité 0 ou 1 donc quand l'abre indique <0,5 cela veut dire = 0 et et = 1 sinon
-
-
+On voit ici quel variable contribue le plus fait q'un individu effectue une transaction. Les variables catégorielles étant la résultante d'un lablel encoding elles ont pour modalité 0 ou 1 donc quand l'abre indique <0,5 cela veut dire = 0 et et = 1 sinon. On constacte ici que la variale qui pédetermine le plus qu'un individus effectue une transaction soit que soit égale 0 si elle vaut 1 c' que soit égale à 0 sinon que le nombre de visites dépasse 9,5 et ainsi de suite. On peut maintenant appliquer ce modele sur de nouveaux individus pour voir les quels sont sur le point de consommer.
 
 # K-Means Clustering
 Demo : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Clustering%20K-Means.py
