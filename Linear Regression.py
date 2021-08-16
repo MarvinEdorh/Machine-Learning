@@ -15,7 +15,7 @@ WITH lifetimevalue AS (
 SELECT CONCAT('ID',fullvisitorid) AS ID_Visitor, IFNULL(SUM(hits.transaction.transactionRevenue/1000000),0) AS CA,  
        DATE_DIFF(PARSE_DATE('%Y%m%d',MAX(date)),PARSE_DATE('%Y%m%d',MIN(date)),DAY) AS lifetime
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2016*` AS ga, UNNEST(ga.hits) AS hits
-GROUP BY fullvisitorid  )
+WHERE hits.transaction.transaction IS NOT NULL GROUP BY fullvisitorid  )
 SELECT ID_Visitor, CA, lifetime, CA*lifetime AS lifetimevalue FROM lifetimevalue ORDER BY CA DESC"""
 
 query_results = client.query(query) ; query_results = query_results.result()
@@ -57,7 +57,7 @@ query = """
 SELECT CONCAT('ID',fullvisitorid) AS ID_Visitor, IFNULL(SUM(hits.transaction.transactionRevenue/1000000),0) AS CA,  
        DATE_DIFF(PARSE_DATE('%Y%m%d',MAX(date)),PARSE_DATE('%Y%m%d',MIN(date)),DAY) AS lifetime
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` AS ga, UNNEST(ga.hits) AS hits
-GROUP BY fullvisitorid ORDER BY CA DESC"""
+WHERE hits.transaction.transaction IS NOT NULL GROUP BY fullvisitorid ORDER BY CA DESC"""
 
 query_results = client.query(query) ; query_results = query_results.result()
 
