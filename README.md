@@ -6,7 +6,7 @@ La régression linéaire est un modèle qui permet de modéliser toute variable 
 # Classification & Decisions Tree
 Demo : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Classification%20%26%20Decision%20Tree.py
 
-Le modèle de classification permet de modéliser une variable binaire en fonction de varibles numériques. En marketing digital ce modèle peut être utiliser pour prédire le churn (l'abonné est sur le point de se désabonner ou non) ou la consommation (le client est sur le point de consommer ou pas). Si l'on veut inclure des variables catégorielle au modèle il faut préalablement y appliquer un label encoding (chaque modalité de la variable catégorielle devient une variable numérique égale à 1 si l'individu la possede et 0 sinon)
+Le modèle de classification permet de modéliser une variable binaire en fonction de varibles numériques. En marketing digital ce modèle peut être utiliser pour prédire le churn (l'abonné est sur le point de se désabonner ou non) ou la consommation (le client est sur le point de consommer ou pas). Si l'on veut inclure des variables catégorielle au modèle il faut préalablement y appliquer un label encoding (chaque modalité de la variable catégorielle devient une variable numérique égale à 1 si l'individu la possede et 0 sinon). On divise ensuite le jeu de donnée en 2, l'un qui permettra au modèle de s'entrainer à modeliser la variable dépendante et qui lui permettra de se tester. 
 ![decisions tree](https://user-images.githubusercontent.com/83826055/129446293-262d9803-549c-486b-9fe8-426f16bf5a66.png)
 
 # K-Means Clustering
