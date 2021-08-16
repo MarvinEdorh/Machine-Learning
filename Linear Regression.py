@@ -21,7 +21,7 @@ SELECT ID_Visitor, CA, lifetime, CA*lifetime AS lifetimevalue FROM lifetimevalue
 query_results = client.query(query) ; query_results = query_results.result()
 
 #Résutats de la reqête
-ID_Visitor = [] ; CA = [] ;	lifetime = [] ; lifetime_value = []
+ID_Visitor = [] ; CA = [] ; lifetime = [] ; lifetime_value = []
 
 for row in query_results: 
     ID_Visitor.append(row[0]) 
