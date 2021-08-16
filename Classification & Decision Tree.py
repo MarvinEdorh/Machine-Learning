@@ -12,10 +12,8 @@ client = bigquery.Client.from_service_account_json(
 json_credentials_path='mrvtestproject45-bbc9aec8eae9.json', 
 project='mrvtestproject45')
 
-#Pour chaque visiteur on calcule la durée entre sa premiere visite et son premier achat 
-#s'il en a effectué et la durée entre sa premiere et sa derniere visite sinon
-#On indique également le device sur lequel il a effectué la transaction ou sa dernière visite sinon. 
-#On code 1 s'il a effectué une transaction 0 sinon. 
+#Caractéritiques de chaque transaction : device de l'achat, systeme d'exploitation, source campaign, source trafic, 
+#continent, produits et catégorie produit, nombre de visites sur produits et catégorie produit achetés avant achat
 
 query = """
 WITH 
@@ -83,12 +81,9 @@ transactions = pd.DataFrame(transactions)
 
 ################################################### Train ##########################################################
 
-#Caractéritiques de chaque transaction : device de l'achat, systeme d'exploitation, source campaign, source trafic, 
-#continent, produits et catégorie produit, nombre de visites sur produits et catégorie produit achetés avant achat
-
 #le modele de classsification s'applique avec des variables numériques
-#il faut recoder les variables catégorielles en effectuant un encodage one hot, chaque modalité devient une variable 
-#qui prend 1 si l'individu la possede 0 sinon
+#il faut recoder les variables catégorielles en effectuant un encodage one hot,
+#chaque modalité devient une variable qui prend 1 si l'individu la possede 0 sinon
 
 col = list(transactions.columns); del col[0]; del col[7]; del col[7]
 
@@ -191,7 +186,7 @@ xgb.plot_importance(boost)
 #arbre de decicision
 xgb.to_graphviz(boost, num_trees=2)
 
-##################################################  Prediction  ######################################################
+#####################################################  Prediction  ######################################################
 
 query = """
 WITH visitors AS (
