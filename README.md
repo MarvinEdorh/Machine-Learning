@@ -1,7 +1,7 @@
 # Linear Regression
 Demo : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Linear%20Regression.py
 
-La régression linéaire est un modèle qui permet de modéliser toute variable numérique une combinaison linéaire d'autres variables numériques et d'un résidus aléatoire. En marketing digital ce modèle peut par exemple être utiliser pour prédire la lifetime value d'un consommateur en fonction de sa durée de vie, de sa fréquence d'achat, de son panier moyen...Si l'on veut inclure au modèle des variables catégorielles comme le device, les catégories produits visitées, alors on peut soit effectuer un label encoding de ces variables ou alors réaliser une analyse factorielle afin de réduire le résidus.
+La régression linéaire est un modèle qui permet de modéliser toute variable numérique comme une combinaison linéaire d'autres variables numériques et d'un résidus aléatoire. En marketing digital ce modèle peut par exemple être utiliser pour prédire la lifetime value d'un consommateur en fonction de son son panier moyen, sa fréquence d'achat, sa durée de vie... Si l'on veut inclure au modèle des variables catégorielles comme le device ou les catégories produits visitées ou consommés, alors on peut soit effectuer un label encoding de ces variables ou alors réaliser une analyse factorielle afin de réduire le résidus.
 
 # Classification & Decisions Tree
 Demo : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Classification%20%26%20Decision%20Tree.py
