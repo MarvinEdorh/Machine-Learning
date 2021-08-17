@@ -188,6 +188,7 @@ xgb.to_graphviz(boost, num_trees=2)
 
 #####################################################  Prediction  ######################################################
 
+#même si ce modèle n'est pas trés effeicace on va toute de même l'utiliser pour prédire de futures transactions
 query = """
 WITH visitors AS (
 SELECT DISTINCT fullvisitorid, device.deviceCategory, device.operatingSystem, 
