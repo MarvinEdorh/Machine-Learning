@@ -11,6 +11,6 @@ Le modèle de classification permet de modéliser une variable binaire (variable
 
 On voit ici quelles variables contribuent le plus au fait qu'un individu effectue une transaction. Les variables catégorielles étant la résultante d'un lablel encoding elles ont pour modalité 0 ou 1 donc quand l'arbre indique <0,5 cela veut dire = 0 et = 1 sinon. On constate ici que la variable qui prédétermine le plus qu'un individus effectue une transaction soit que product_category_Apparel soit égal à 0 (donc que l'individu ne l'ait pas visité), sinon que le nombre de visites soit inférieur à 3,5 et ainsi de suite. On applique enfin le modèle à de nouveaux individus pour voir lesquels sont sur le point d'effectuer une transaction.
 # K-Means Clustering : Segmentation
-Demo 1 : https://github.com/MarvinEdorh/Data-Mining/blob/main/README.md#factor-analyzes--clustering-k-means
+Demo 1 : https://github.com/MarvinEdorh/Data-Mining/blob/main/README.md#factor-analyzes--k-means-clustering
 
 Demo 2 : https://github.com/MarvinEdorh/Machine-Learning/blob/main/Clustering%20K-Means.py
