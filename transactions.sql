@@ -14,7 +14,8 @@ SELECT fullvisitorid, hp.v2ProductName,
        DATETIME(EXTRACT(YEAR FROM PARSE_DATE("%Y%m%d", date)), EXTRACT(MONTH FROM PARSE_DATE("%Y%m%d", date)),
                 EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime, 
        SUM(totals.visits) AS visits
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
+UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
 WHERE _TABLE_SUFFIX <= '20161201' GROUP BY fullvisitorid, hp.v2ProductName, datetime ORDER BY fullvisitorid, datetime ),
 
 product_visits AS (
@@ -27,7 +28,8 @@ SELECT fullvisitorid, hp.v2ProductCategory,
        DATETIME(EXTRACT(YEAR FROM PARSE_DATE("%Y%m%d", date)), EXTRACT(MONTH FROM PARSE_DATE("%Y%m%d", date)),
                 EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime, 
        SUM(totals.visits) AS visits
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
+UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
 WHERE _TABLE_SUFFIX <= '20161201' GROUP BY fullvisitorid, hp.v2ProductCategory, datetime ORDER BY fullvisitorid, datetime),
 
 category_visits AS (
