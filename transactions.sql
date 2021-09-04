@@ -48,7 +48,7 @@ AND transactions.datetime_transaction = category_visits.datetime
 
 ORDER BY transaction DESC, Datetime_transaction 
 
-#########################################################################################################################
+#################################################### prediction ##########################################################
 
 SELECT DISTINCT fullvisitorid, device.deviceCategory, device.operatingSystem,trafficSource.campaign, 
 trafficSource.medium, geoNetwork.country, hp.v2ProductCategory, hp.v2ProductName, hp.productPrice /1000000 AS price,
