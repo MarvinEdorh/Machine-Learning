@@ -5,7 +5,7 @@ DATETIME(EXTRACT(YEAR FROM PARSE_DATE("%Y%m%d", date)), EXTRACT(MONTH FROM PARSE
 device.deviceCategory, device.operatingSystem,trafficSource.campaign, trafficSource.medium, geoNetwork.country, 
 hp.v2ProductCategory, hp.v2ProductName, hp.productPrice /1000000 AS price,
 CASE WHEN hits.transaction.transactionId IS NULL THEN 0 ELSE 1 END AS transaction
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_20161201` AS ga, 
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
 UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp),
 
 product AS (
@@ -14,8 +14,7 @@ SELECT fullvisitorid, hp.v2ProductName,
                 EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime, 
        SUM(totals.visits) AS visits
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
-UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
-WHERE _TABLE_SUFFIX <= '20161201' GROUP BY fullvisitorid, hp.v2ProductName, datetime),
+UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp GROUP BY fullvisitorid, hp.v2ProductName, datetime),
 
 product_visits AS (
 SELECT fullvisitorid, v2ProductName, datetime, 
@@ -28,8 +27,7 @@ SELECT fullvisitorid, hp.v2ProductCategory,
                 EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime, 
        SUM(totals.visits) AS visits
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
-UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp 
-WHERE _TABLE_SUFFIX <= '20161201' GROUP BY fullvisitorid, hp.v2ProductCategory, datetime),
+UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp GROUP BY fullvisitorid, hp.v2ProductCategory, datetime),
 
 category_visits AS (
 SELECT fullvisitorid, v2ProductCategory, datetime,
