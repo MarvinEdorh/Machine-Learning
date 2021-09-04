@@ -31,7 +31,7 @@ category_visits AS (SELECT fullvisitorid, v2ProductCategory, datetime,
 SUM(visits) OVER(PARTITION BY fullvisitorid, v2ProductCategory ORDER BY datetime ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS category_visits
 FROM category)
 
-SELECT transactionId, Datetime_transaction, deviceCategory, operatingSystem, campaign, medium, country, transactions.v2ProductCategory, 
+SELECT transactionId, deviceCategory, operatingSystem, campaign, medium, country, transactions.v2ProductCategory, 
 transactions.v2ProductName, price, product_visits.product_visits, category_visits.category_visits, transaction 
 FROM transactions 
 LEFT JOIN product_visits ON transactions.fullvisitorid = product_visits.fullvisitorid 
@@ -39,4 +39,4 @@ AND transactions.v2ProductName = product_visits.v2ProductName AND transactions.d
 LEFT JOIN category_visits ON transactions.fullvisitorid = category_visits.fullvisitorid 
 AND transactions.v2ProductCategory = category_visits.v2ProductCategory AND transactions.datetime_transaction = category_visits.datetime
 
-ORDER BY transaction DESC, Datetime_transaction
+ORDER BY transaction DESC, Datetime_transaction 
