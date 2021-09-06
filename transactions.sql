@@ -2,11 +2,11 @@
 #les categories produits et produits achetés pour chaque transaction, 1 si la transaction a eu lieu 0 sinon.
 WITH transactions AS (
 SELECT DISTINCT hits.transaction.transactionId, fullvisitorid,
-DATETIME(EXTRACT(YEAR FROM PARSE_DATE("%Y%m%d", date)), EXTRACT(MONTH FROM PARSE_DATE("%Y%m%d", date)),
-         EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime_transaction,
-device.deviceCategory, device.operatingSystem,trafficSource.campaign, trafficSource.medium, geoNetwork.country, 
-hp.v2ProductCategory, hp.v2ProductName, hp.productPrice /1000000 AS price,
-CASE WHEN hits.transaction.transactionId IS NULL THEN 0 ELSE 1 END AS transaction
+       DATETIME(EXTRACT(YEAR FROM PARSE_DATE("%Y%m%d", date)), EXTRACT(MONTH FROM PARSE_DATE("%Y%m%d", date)),
+                EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime_transaction,
+      device.deviceCategory, device.operatingSystem,trafficSource.campaign, trafficSource.medium, geoNetwork.country, 
+      hp.v2ProductCategory, hp.v2ProductName, hp.productPrice /1000000 AS price,
+      CASE WHEN hits.transaction.transactionId IS NULL THEN 0 ELSE 1 END AS transaction
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
 UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp),
 
@@ -38,7 +38,7 @@ GROUP BY fullvisitorid, hp.v2ProductCategory, datetime),
 
 #On additionne le nombre de visites 1 à 1 par utlisateur et par categorie produit dans l'ordre croissant du temps
 category_visits AS (
-SELECT fullvisitorid, v2ProductCategory, datetime,
+SELECT fullvisitorid, v2ProductCategory, datetime, 
        SUM(visits) OVER(PARTITION BY fullvisitorid, v2ProductCategory ORDER BY datetime 
                         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS nb_category_visits FROM category)
 
@@ -46,7 +46,7 @@ SELECT fullvisitorid, v2ProductCategory, datetime,
 #pour chaque transaction ainsi que le nombre de visites que l'utlisateur a fait sur les categories produits et 
 #produits consommés avant qu'il effectue la transaction, 1 si la transaction a eu lieu 0 sinon.
 SELECT transactionId, deviceCategory, operatingSystem, campaign, medium, country, transactions.v2ProductCategory, 
-transactions.v2ProductName, price, nb_product_visits, nb_category_visits, transaction FROM transactions 
+       transactions.v2ProductName, price, nb_product_visits, nb_category_visits, transaction FROM transactions 
 LEFT JOIN product_visits 
 ON transactions.fullvisitorid = product_visits.fullvisitorid 
 AND transactions.v2ProductName = product_visits.v2ProductName 
