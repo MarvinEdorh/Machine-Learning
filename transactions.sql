@@ -46,9 +46,9 @@ SELECT fullvisitorid, v2ProductCategory, datetime, SUM(visits) OVER(PARTITION BY
                                                    AS nb_category_visits 
 FROM category)
 
-#On selectionne l'id, le device, l'os, la source, la campagne, le pays, les categories produits et produits achetés
-#pour chaque transaction ainsi que le nombre de visites que l'utlisateur a fait sur les categories produits et 
-#produits consommés avant qu'il effectue la transaction, 1 si la transaction a eu lieu 0 sinon.
+#On selectionne l'id, le device, l'os, la source, la campagne, le pays, les categories produits et produits 
+#achetés pour chaque transaction ainsi que le nombre de visites que l'utlisateur a fait sur les categories 
+#produits et produits consommés avant qu'il effectue la transaction, 1 si la transaction a eu lieu 0 sinon.
 SELECT transactionId, deviceCategory, operatingSystem, campaign, medium, country, transactions.v2ProductCategory, 
        transactions.v2ProductName, price, nb_product_visits, nb_category_visits, transaction FROM transactions 
 LEFT JOIN product_visits 
