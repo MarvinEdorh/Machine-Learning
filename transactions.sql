@@ -22,9 +22,11 @@ GROUP BY fullvisitorid, hp.v2ProductName, datetime),
 
 #On additionne le nombre de visites 1 à 1 par utlisateur et par produit dans l'ordre croissant du temps
 product_visits AS (
-SELECT fullvisitorid, v2ProductName, datetime, 
-       SUM(visits) OVER(PARTITION BY fullvisitorid, v2ProductName ORDER BY datetime 
-                        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS nb_product_visits FROM product),
+SELECT fullvisitorid, v2ProductName, datetime, SUM(visits) OVER(PARTITION BY fullvisitorid, v2ProductName 
+                                                                ORDER BY datetime 
+                                                                ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) 
+                                               AS nb_product_visits 
+FROM product),
 
 #On calcule le nombre de visites de chaque utlisateur sur chaque categorie produit en fonction du temps.
 category AS (
@@ -38,9 +40,11 @@ GROUP BY fullvisitorid, hp.v2ProductCategory, datetime),
 
 #On additionne le nombre de visites 1 à 1 par utlisateur et par categorie produit dans l'ordre croissant du temps
 category_visits AS (
-SELECT fullvisitorid, v2ProductCategory, datetime, 
-       SUM(visits) OVER(PARTITION BY fullvisitorid, v2ProductCategory ORDER BY datetime 
-                        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS nb_category_visits FROM category)
+SELECT fullvisitorid, v2ProductCategory, datetime, SUM(visits) OVER(PARTITION BY fullvisitorid, v2ProductCategory 
+                                                                    ORDER BY datetime 
+                                                                    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+                                                   AS nb_category_visits 
+FROM category)
 
 #On selectionne l'id, le device, l'os, la source, la campagne, le pays, les categories produits et produits achetés
 #pour chaque transaction ainsi que le nombre de visites que l'utlisateur a fait sur les categories produits et 
