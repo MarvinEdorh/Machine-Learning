@@ -4,9 +4,9 @@ WITH transactions AS (
 SELECT DISTINCT hits.transaction.transactionId, fullvisitorid,
        DATETIME(EXTRACT(YEAR FROM PARSE_DATE("%Y%m%d", date)), EXTRACT(MONTH FROM PARSE_DATE("%Y%m%d", date)),
                 EXTRACT(DAY FROM PARSE_DATE("%Y%m%d", date)), hits.hour, hits.minute, 00) AS datetime_transaction,
-      device.deviceCategory, device.operatingSystem,trafficSource.campaign, trafficSource.medium, geoNetwork.country, 
-      hp.v2ProductCategory, hp.v2ProductName, hp.productPrice /1000000 AS price,
-      CASE WHEN hits.transaction.transactionId IS NULL THEN 0 ELSE 1 END AS transaction
+       device.deviceCategory, device.operatingSystem,trafficSource.campaign, trafficSource.medium, geoNetwork.country, 
+       hp.v2ProductCategory, hp.v2ProductName, hp.productPrice /1000000 AS price,
+       CASE WHEN hits.transaction.transactionId IS NULL THEN 0 ELSE 1 END AS transaction
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*` AS ga, 
 UNNEST(ga.hits) AS hits, UNNEST(hits.product) AS hp),
 
