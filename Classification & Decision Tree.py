@@ -63,7 +63,7 @@ for row in query_results:
     Product.append(row[6])
     Product_Category.append(row[7])
     Product_Visits.append(row[8])
-    Product_Category_Visits	.append(row[9])
+    Product_Category_Visits.append(row[9])
     Transaction.append(row[10])
        
 transactions = {"ID_Transaction":ID_Transaction,
