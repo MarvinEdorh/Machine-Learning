@@ -229,7 +229,7 @@ for row in query_results:
     Product.append(row[6])
     Product_Category.append(row[7])
     Product_Visits.append(row[8])
-    Product_Category_Visits	.append(row[9])
+    Product_Category_Visits.append(row[9])
        
 future_transactions = {"fullvisitorid":fullvisitorid, "deviceCategory":deviceCategory,
                        "operatingSystem":operatingSystem, "campaign":campaign, "medium":medium, 
